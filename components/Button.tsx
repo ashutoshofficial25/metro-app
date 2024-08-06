@@ -8,7 +8,7 @@ import {
 
 interface IProps {
   title: string;
-  onPress: ((event: GestureResponderEvent) => void) | null | undefined;
+  onPress?: ((event: GestureResponderEvent) => void) | null | undefined;
 }
 
 export default function Button({ title, onPress }: IProps) {
