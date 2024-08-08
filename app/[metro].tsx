@@ -3,7 +3,7 @@ import { TicketSchema } from '@/common/schema';
 import { MetroList } from '@/constants/data';
 import { AntDesign, Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
-import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
+import { Link, router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { ErrorMessage, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -57,6 +57,8 @@ export default function Metro() {
         initialValues={schema.initialValues}
         onSubmit={async (values) => {
           console.log('log::: values', values);
+
+          router.navigate('/payment-success');
         }}
         validationSchema={schema.schema}
       >
@@ -109,13 +111,16 @@ export default function Metro() {
                   setFieldValue('from', itemValue)
                 }
               >
-                {stations.map((station) => (
-                  <Picker.Item
-                    key={station._id}
-                    label={station.name}
-                    value={station._id}
-                  />
-                ))}
+                <Picker.Item label='From' value={''} color='#a1a1a1' />
+                {stations
+                  .filter((item) => item?._id !== values.to)
+                  .map((station) => (
+                    <Picker.Item
+                      key={station._id}
+                      label={station.name}
+                      value={station._id}
+                    />
+                  ))}
               </Picker>
 
               <Text style={{ color: '#ff0000' }}>
@@ -128,9 +133,16 @@ export default function Metro() {
                   setFieldValue('to', itemValue)
                 }
               >
-                <Picker.Item label='Sector-62' value={'sector-62'} />
-                <Picker.Item label='Sector-63' value={'sector-63'} />
-                <Picker.Item label='Sector-64' value={'sector-64'} />
+                <Picker.Item label='To' value={''} color='#a1a1a1' />
+                {stations
+                  .filter((item) => item?._id !== values.from)
+                  .map((station) => (
+                    <Picker.Item
+                      key={station._id}
+                      label={station.name}
+                      value={station._id}
+                    />
+                  ))}
               </Picker>
 
               <Text style={{ color: '#ff0000' }}>
