@@ -43,7 +43,7 @@ export default function Metro() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Link href={'/'}>
-          <AntDesign name='left' size={20} color='black' />
+          <AntDesign name="left" size={20} color="black" />
         </Link>
         <Image style={styles.image} src={metroDetail?.url} />
         <Text style={styles.h1}>{metroDetail?.name}</Text>
@@ -109,17 +109,20 @@ export default function Metro() {
                   setFieldValue('from', itemValue)
                 }
               >
-                {stations.map((station) => (
-                  <Picker.Item
-                    key={station._id}
-                    label={station.name}
-                    value={station._id}
-                  />
-                ))}
+                <Picker.Item color="#919191" label={'From'} value={''} />
+                {stations
+                  .filter((item) => item?._id !== values.to)
+                  .map((station) => (
+                    <Picker.Item
+                      key={station._id}
+                      label={station.name}
+                      value={station._id}
+                    />
+                  ))}
               </Picker>
 
               <Text style={{ color: '#ff0000' }}>
-                <ErrorMessage name='from' />
+                <ErrorMessage name="from" />
               </Text>
 
               <Picker
@@ -128,13 +131,20 @@ export default function Metro() {
                   setFieldValue('to', itemValue)
                 }
               >
-                <Picker.Item label='Sector-62' value={'sector-62'} />
-                <Picker.Item label='Sector-63' value={'sector-63'} />
-                <Picker.Item label='Sector-64' value={'sector-64'} />
+                <Picker.Item color="#919191" label={'To'} value={''} />
+                {stations
+                  .filter((item) => item?._id !== values.from)
+                  .map((station) => (
+                    <Picker.Item
+                      key={station._id}
+                      label={station.name}
+                      value={station._id}
+                    />
+                  ))}
               </Picker>
 
               <Text style={{ color: '#ff0000' }}>
-                <ErrorMessage name='to' />
+                <ErrorMessage name="to" />
               </Text>
 
               <View
@@ -161,7 +171,7 @@ export default function Metro() {
                       return setFieldValue('passenger', values.passenger - 1);
                     }}
                   >
-                    <Ionicons name='remove-outline' size={16} />
+                    <Ionicons name="remove-outline" size={16} />
                   </Pressable>
 
                   <Text style={{ fontSize: 16, padding: 4 }}>
@@ -174,7 +184,7 @@ export default function Metro() {
                       setFieldValue('passenger', values.passenger + 1)
                     }
                   >
-                    <Ionicons name='add-outline' size={16} />
+                    <Ionicons name="add-outline" size={16} />
                   </Pressable>
                 </View>
               </View>
@@ -186,7 +196,7 @@ export default function Metro() {
                 }}
               >
                 <Feather
-                  name='info'
+                  name="info"
                   style={{ marginRight: 4, marginTop: 5, color: '#a1a1a1' }}
                 />
                 <Text style={{ color: '#a1a1a1', fontSize: 12 }}>
