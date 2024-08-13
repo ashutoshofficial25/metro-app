@@ -111,7 +111,7 @@ export default function Metro() {
                   setFieldValue('from', itemValue)
                 }
               >
-                <Picker.Item label="From" value={''} color="#a1a1a1" />
+                <Picker.Item color="#919191" label={'From'} value={''} />
                 {stations
                   .filter((item) => item?._id !== values.to)
                   .map((station) => (
@@ -133,9 +133,16 @@ export default function Metro() {
                   setFieldValue('to', itemValue)
                 }
               >
-                <Picker.Item label="Sector-62" value={'sector-62'} />
-                <Picker.Item label="Sector-63" value={'sector-63'} />
-                <Picker.Item label="Sector-64" value={'sector-64'} />
+                <Picker.Item color="#919191" label={'To'} value={''} />
+                {stations
+                  .filter((item) => item?._id !== values.from)
+                  .map((station) => (
+                    <Picker.Item
+                      key={station._id}
+                      label={station.name}
+                      value={station._id}
+                    />
+                  ))}
               </Picker>
 
               <Text style={{ color: '#ff0000' }}>
